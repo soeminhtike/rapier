@@ -1,0 +1,4 @@
+h1,class:book-title
+span,id:productTitle,id:bookedition
+a,*:field-author
+*,class:author,class:edition,*:pages
