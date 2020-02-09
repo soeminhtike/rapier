@@ -60,7 +60,6 @@ public class Rapier {
 
 	public String preprocessing(File file) throws Exception {
 		SAXParser parser = SAXParserImpl.newInstance(null);
-		logger.info("here");
 		TagExtractor extractor = new TagExtractor(prefinedTagDao.getAllPredefinedTag());
 		parser.parse(file, extractor);
 		List<Node> nodeList = extractor.getNodes();

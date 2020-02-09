@@ -2,6 +2,7 @@ package me.tdm.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,12 +14,15 @@ import me.tdm.entity.RapierRule;
 @Repository
 @Transactional(readOnly = true)
 public class EntityService {
+	
+	private static Logger logger = Logger.getLogger(EntityService.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Transactional(readOnly = false)
 	public void save(PredefinedTag tag) {
+		logger.info(" name :" + tag.getName() +" attributes: " + tag.getNodeAttributeList().size());
 		sessionFactory.getCurrentSession().save(tag);
 	}
 	
