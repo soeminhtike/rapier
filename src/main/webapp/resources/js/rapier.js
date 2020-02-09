@@ -19,7 +19,7 @@ function uploadPreprocessingFile(element) {
 
 function uploadHTMLFile(element) {
     upload(element.files[0], "extract").then(message => {
-        console.log(message);
+        $("#result-text").text(message);
     });
 }
 
@@ -29,16 +29,16 @@ function upload(file, url) {
         formData.append('file', file);
         let xhr = new XMLHttpRequest();
         // $("#preprocessing-file-display").val(file);
-        xhr.onreadystatechange = res => {
-            if (res.readyState != 4)
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState != 4)
                 return;
-            if (res.status != 200) {
+            if (xhr.status != 200) {
                 console.log("error");
                 reject('error');
                 return;
             }
             alert("Uploaded");
-            resolve('success');
+            resolve(xhr.responseText);
         }
         xhr.open("POST", url);
         xhr.send(formData);

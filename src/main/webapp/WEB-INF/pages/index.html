@@ -1,50 +1,54 @@
 <html>
 <head>
-	<link href="resources/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+<link href="resources/node_modules/bootstrap/dist/css/bootstrap.css"
+	rel="stylesheet" />
 
-	<script src="resources/node_modules/jquery/dist/jquery.js"></script>
-	<script src="resources/node_modules/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="resources/node_modules/vue/dist/vue.js"></script>
-	<script src="resources/js/rapier.js"></script>
-	<meta charset="UTF-8"/>
-	<title>Rapier Console</title>
+<script src="resources/node_modules/jquery/dist/jquery.js"></script>
+<script src="resources/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="resources/node_modules/vue/dist/vue.js"></script>
+<script src="resources/js/rapier.js"></script>
+<meta charset="UTF-8" />
+<title>Rapier Console</title>
 </head>
 <body class="container">
-<div style="padding:30px;" >
-	<h1>Rapier System</h1>
-</div>
-<form>
-	<div class="form-group">
-		<div class="input-group" >
-			<input type="text" class="form-control" id="preprocessing-file-display"/>
-			<div class="input-group-append" onclick="$('#preprocessing-file').click()">
-				<span class="input-group-text" >Select File</span>
+	<div style="padding: 30px;">
+		<h1>Rapier System</h1>
+	</div>
+	<form>
+		<div class="form-group">
+			<div class="input-group">
+				<input type="text" class="form-control"
+					id="preprocessing-file-display" />
+				<div class="input-group-append"
+					onclick="$('#preprocessing-file').click()">
+					<span class="input-group-text">Select File</span>
+				</div>
+			</div>
+			<input type="file" id="preprocessing-file"
+				onchange="uploadPreprocessingFile(this)" style="display: none;" /> <small>File
+				that extract tag from html</small>
+		</div>
+	</form>
+	<div style="padding: 20px;"></div>
+	<form >
+		<div class="form-group">
+			<label>Regular Expression</label> <input type="text"
+				class="form-control" /> <small>Rule Apply to result tag</small>
+		</div>
+		<button type="submit" class="btn btn-primary float-right" style="display:none;">Upload</button>
+	</form>
+	<form style="margin-top: 40px;">
+		<div class="form-group">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="HTML file" />
+				<div class="input-group-append" onclick="$('#html-file').click()">
+					<span class="input-group-text">Select File</span>
+				</div>
 			</div>
 		</div>
-		<input type="file" id="preprocessing-file" onchange="uploadPreprocessingFile(this)" style="display: none;"/>
-		<small>File that extract tag from html</small>
-	</div>
-</form>
-<div style="padding:20px;" ></div>
-<form>
-	<div class="form-group">
-		<label>Regular Expression</label>
-		<input type="text" class="form-control"/>
-		<small>Rule Apply to result tag</small>
-	</div>
-	<button type="submit" class="btn btn-primary float-right">Upload</button>
-</form>
-<form style="margin-top:40px;">
-	<div class="form-group">
-		<div class="input-group" >
-			<input type="text" class="form-control" placeholder="HTML file"/>
-			<div class="input-group-append" onclick="$('#html-file').click()" >
-				<span class="input-group-text" >Select File</span>
-			</div>
-		</div>
-
-	</div>
-	<input type="file" style="display: none;" onchange="uploadHTMLFile(this)" id="html-file"></input>
-</form>
+		<input type="file" style="display: none;"
+			onchange="uploadHTMLFile(this)" id="html-file"></input>
+	</form>
+	<textarea id="result-text" class="form-control"></textarea>
 </body>
 </html>

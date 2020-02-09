@@ -22,7 +22,6 @@ public class EntityService {
 
 	@Transactional(readOnly = false)
 	public void save(PredefinedTag tag) {
-		logger.info(" name :" + tag.getName() +" attributes: " + tag.getNodeAttributeList().size());
 		sessionFactory.getCurrentSession().save(tag);
 	}
 	
