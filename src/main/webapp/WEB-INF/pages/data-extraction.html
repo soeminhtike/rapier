@@ -1,0 +1,32 @@
+<section id="contact" th:fragment="extraction">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 mx-auto">
+				<h2>Extraction</h2>
+				<p class="lead"></p>
+			</div>
+		</div>
+		<form style="margin-top: 40px;">
+			<div class="form-group">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="HTML file"/>
+					<div class="input-group-append" onclick="$('#html-file').click()">
+						<span class="input-group-text">Select File</span>
+					</div>
+				</div>
+			</div>
+			<input type="file" style="display: none;" onchange="uploadHTMLFile(this)" id="html-file"></input>
+		</form>
+		<div class="row" >
+			<div class="col-md-6" >
+				<div >Out put</div>
+				<textarea id="result-text" class="form-control" style="height: 500px;"></textarea>
+			</div>
+			<div class="col-md-6" >
+				<div >Input</div>
+				<textarea id="input-text" class="form-control" style="height: 500px;"></textarea>
+			</div>
+		</div>
+
+	</div>
+</section>

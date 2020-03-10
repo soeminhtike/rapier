@@ -1,0 +1,27 @@
+<section th:fragment="admin" id="about">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 mx-auto">
+				<h2>Pre-Processing</h2>
+				<p class="lead">Select and load pre-processing rule to System</p>
+			</div>
+		</div>
+		<form>
+			<div class="form-group">
+				<div class="input-group">
+					<input type="text" class="form-control"
+						   id="preprocessing-file-display"/>
+					<div class="input-group-append"
+						 onclick="$('#preprocessing-file').click()">
+						<span class="input-group-text">Select File</span>
+					</div>
+				</div>
+				<input type="file" id="preprocessing-file" onchange="uploadPreprocessingFile(this)" style="display: none;"/>
+				<small>File that extract tag from html</small>
+			</div>
+		</form>
+		<div class="row" style="margin:auto;">
+			<textarea id="preprocessing-output" class="col-md-11"></textarea>
+		</div>
+	</div>
+</section>
