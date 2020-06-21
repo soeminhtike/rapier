@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-	<meta name="description" content=""/>
-	<meta name="author" content=""/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
-	<title>Rapier</title>
+    <title>Rapier</title>
 
-	<!-- Bootstrap core CSS -->
-	<link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Bootstrap core CSS -->
+    <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
-	<!-- Custom styles for this template -->
-	<link href="resources/css/scrolling-nav.css" rel="stylesheet"></link>
+    <!-- Custom styles for this template -->
+    <link href="resources/css/scrolling-nav.css" rel="stylesheet"></link>
 
-	<script src="resources/node_modules/jquery/dist/jquery.js"></script>
-	<script src="resources/node_modules/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="resources/node_modules/vue/dist/vue.js"></script>
-	<script src="resources/js/rapier.js"></script>
-	<script src="resources/node_modules/" ></script>
+    <script src="resources/node_modules/jquery/dist/jquery.js"></script>
+    <script src="resources/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="resources/node_modules/vue/dist/vue.js"></script>
+    <script src="resources/js/rapier.js"></script>
+    <script src="resources/node_modules/"></script>
 
 </head>
 
@@ -27,43 +27,40 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-	<div class="container">
-		<a class="navbar-brand js-scroll-trigger" href="#page-top">Rapier System</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarResponsive">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="#about">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="#services">Upload</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="#contact">View</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">I.E from Semi-structured Text Using R.L.A</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#services">Upload</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#contact">Extraction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#search">Search</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<header class="bg-primary text-white">
-	<div class="container text-center">
-		<h1>Welcome to Rapier Administration</h1>
-		<p class="lead">by Teacher Thi Dar</p>
-	</div>
-</header>
 
+<header th:replace="admin::welcome" ></header>
 <section id="about" th:replace="admin::admin"></section>
-<section id="regular-expression" th:replace="regular-expression::regular-expression" ></section>
-<section id="extraction" th:replace="data-extraction::extraction" ></section>
-<!-- Footer -->
+<section id="regular-expression" th:replace="regular-expression::regular-expression"></section>
+<section id="extraction" th:replace="data-extraction::extraction"></section>
+<section  th:replace="search::search"></section>
 <footer class="py-5 bg-dark">
-	<div class="container">
-		<p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-	</div>
-	<!-- /.container -->
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
 </footer>
 
 <!-- Bootstrap core JavaScript -->

@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 mx-auto">
-				<h2>Pre-Processing</h2>
+				<h2>Pre-Processing Settings</h2>
 				<p class="lead">Select and load pre-processing rule to System</p>
 			</div>
 		</div>
@@ -16,12 +16,19 @@
 						<span class="input-group-text">Select File</span>
 					</div>
 				</div>
-				<input type="file" id="preprocessing-file" onchange="uploadPreprocessingFile(this)" style="display: none;"/>
+				<input type="file" id="preprocessing-file" onchange="uploadPreprocessingFile(this)" accept=".pre" style="display: none;"/>
 				<small>File that extract tag from html</small>
 			</div>
 		</form>
-		<div class="row" style="margin:auto;">
-			<textarea id="preprocessing-output" class="col-md-11"></textarea>
+		<div class="row" style="margin:auto;width:100%;height: 300px;">
+			<textarea id="preprocessing-output" class="col-md-12" style="border:thin solid #ccc;resize:none;"></textarea>
 		</div>
 	</div>
 </section>
+
+<header class="bg-primary text-white" id="welcome" th:fragment="welcome">
+	<div class="container text-center">
+		<h1>Welcome to Rapier Administration</h1>
+		<p class="lead">by Teacher Thi Dar</p>
+	</div>
+</header>

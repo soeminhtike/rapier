@@ -1,11 +1,13 @@
 package me.tdm.entry;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -22,6 +24,7 @@ import me.tdm.constant.OperationStatus;
 import me.tdm.dao.EntityService;
 import me.tdm.entity.PredefinedTag;
 import me.tdm.entity.RapierRule;
+import me.tdm.helper.Utitlities;
 import me.tdm.logic.Rapier;
 
 @Controller
@@ -59,34 +62,36 @@ public class HomeController {
 
 	@RequestMapping(value = "/rule", method = RequestMethod.POST)
 	public String uploadRegex(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()));
-		String ch = reader.readLine();
-		while (ch != null) {
+		for (String line : Utitlities.fileIteratable(multipartFile.getInputStream())) {
 			RapierRule rule = new RapierRule();
-			int index = ch.lastIndexOf(":");
+			int index = line.lastIndexOf(":");
 			if (index == -1)
 				continue;
-			// String stringRule = ;
-			rule.setRegex(ch.substring(0, index));
-			rule.setGroups(ch.substring(index + 1));
+			rule.setRegex(line.substring(0, index));
+			rule.setGroups(line.substring(index + 1));
 			entityService.save(rule);
-			ch = reader.readLine();
 		}
 		return OperationStatus.SUCCESS.name();
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "extract", method = RequestMethod.POST)
-	public String extractFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+	public void extractFile(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response)
+			throws Exception {
 		String fileName = String.format("%s/%d", path, System.nanoTime());
 		FileOutputStream outputStream = new FileOutputStream(new File(fileName));
 		IOUtils.copy(multipartFile.getInputStream(), outputStream);
 		outputStream.flush();
 		outputStream.close();
 		String processedString = rapier.preprocessing(new File(fileName));
-		logger.info("Preprocessing :" + processedString);
+
 		// String result = rapier.applyRegex(processedString,
 		// entityService.getAllRapierRule());
-		return processedString; // OperationStatus.SUCCESS.name();
+		// return processedString; // OperationStatus.SUCCESS.name();
+		IOUtils.copy(toInputStream(processedString), response.getOutputStream());
+	}
+
+	private InputStream toInputStream(String str) {
+		return new ByteArrayInputStream(str.getBytes());
 	}
 }
