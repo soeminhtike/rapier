@@ -1,8 +1,5 @@
 package me.tdm.operationTest;
 
-import java.io.File;
-import java.io.PrintWriter;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,10 +25,6 @@ public class HTMLExtractorTest {
 
 	@Test
 	public void extract() throws Exception {
-		final String preprocessedString = rapier.preprocessing(new File(path + "/hello3.html"));
-		PrintWriter pw = new PrintWriter(new File(path + "/result.xml"));
-		pw.write(preprocessedString);
-		pw.flush();
-		pw.close();
+		
 	}
 }

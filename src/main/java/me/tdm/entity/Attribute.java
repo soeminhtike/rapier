@@ -7,11 +7,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.xml.sax.Attributes;
-
 @Entity
 @Table(name="attribute")
-public class NodeAttribute extends BaseEntity {
+public class Attribute extends BaseEntity {
 
 	@Column(name="name")
 	private String name;
@@ -19,9 +17,9 @@ public class NodeAttribute extends BaseEntity {
 	@Column(name="value")
 	private String value;
 	
-	@JoinColumn(name="predefinedtagId")
+	@JoinColumn(name="tagId")
 	@OneToOne(fetch = FetchType.EAGER)
-	private PredefinedTag predefinedTag;
+	private Tag tag;
 
 	public String getName() {
 		return name;
@@ -39,12 +37,12 @@ public class NodeAttribute extends BaseEntity {
 		this.value = value;
 	}
 
-	public PredefinedTag getPredefinedTag() {
-		return predefinedTag;
+	public Tag getTag() {
+		return tag;
 	}
 
-	public void setPredefinedTag(PredefinedTag predefinedTag) {
-		this.predefinedTag = predefinedTag;
+	public void setTag(Tag predefinedTag) {
+		this.tag = predefinedTag;
 	}
 	
 	public String toString() {

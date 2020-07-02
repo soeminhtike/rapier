@@ -12,14 +12,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import me.tdm.entity.Node;
-import me.tdm.entity.NodeAttribute;
-import me.tdm.entity.PredefinedTag;
+import me.tdm.entity.Attribute;
+import me.tdm.entity.Tag;
 
 public class TagExtractor extends DefaultHandler {
 
 	private static Logger logger = Logger.getLogger(TagExtractor.class);
 
-	private Map<String, PredefinedTag> allowedTags;
+	private Map<String, Tag> allowedTags;
 
 	private List<Node> nodeList;
 
@@ -29,7 +29,7 @@ public class TagExtractor extends DefaultHandler {
 
 	private Stack<String> ignoreTag = new Stack<>();
 
-	public TagExtractor(List<PredefinedTag> tagList) {
+	public TagExtractor(List<Tag> tagList) {
 		allowedTags = new HashMap<>();
 		this.nodeList = new ArrayList<>();
 		tagList.forEach(tag -> {
@@ -59,7 +59,7 @@ public class TagExtractor extends DefaultHandler {
 			node.text += String.format("<%s %s>", localName, extractAttributes(attributes, localName));
 			return;
 		}
-		PredefinedTag tag = allowedTags.get("*");
+		Tag tag = allowedTags.get("*");
 		if (tag != null && tag.isValidAttribute(attributes) && node == null) {
 			logger.info("valid by attribute");
 			hierarchy = new Stack<>();

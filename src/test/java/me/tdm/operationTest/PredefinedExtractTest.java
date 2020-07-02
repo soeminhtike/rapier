@@ -18,7 +18,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import me.tdm.config.TestConfig;
 import me.tdm.dao.EntityService;
-import me.tdm.entity.PredefinedTag;
+import me.tdm.entity.DataEntry;
+import me.tdm.entity.Tag;
+import me.tdm.logic.DataEntryService;
 import me.tdm.logic.Rapier;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,18 +36,24 @@ public class PredefinedExtractTest {
 	private Rapier rapier;
 	
 	@Autowired
+	private DataEntryService dataEntryService;
+	
+	@Autowired
 	private EntityService entityService;
 
 	@Test
 	public void databaseCreateTest() {
+		File file = new File("");
 		logger.info("created database");
+		DataEntry dataEntry = dataEntryService.create(file);
+		dataEntryService.save(dataEntry);
 	}
 	
 	@Test
 	@Ignore
 	public void predefinedRuleExtractTest() throws Exception {
-		List<PredefinedTag> list = rapier.extractPreProcessingRule(new File(path+"predefinedRule.pre"));
-		for(PredefinedTag tag : list) {
+		List<Tag> list = rapier.extractPreProcessingRule(new File(path+"predefinedRule.pre"));
+		for(Tag tag : list) {
 			logger.info(tag);
 			entityService.save(tag);
 		}
