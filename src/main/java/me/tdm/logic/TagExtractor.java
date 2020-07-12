@@ -41,8 +41,11 @@ public class TagExtractor extends DefaultHandler {
 	public void startElement(String uri, String tagName, String qName, Attributes attributes) throws SAXException {
 		if (isValidTag(tagName) && activeNode == null) {
 			Tag tag = allowedTags.get(tagName);
-			if (!tag.isValidAttribute(attributes)) {
-				return;
+
+			if (!tag.getNodeAttributeList().isEmpty()) {
+				if (!tag.isValidAttribute(attributes)) {
+					return;
+				}
 			}
 
 			hierarchy = new Stack<>();

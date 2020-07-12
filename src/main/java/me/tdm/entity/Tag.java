@@ -96,30 +96,20 @@ public class Tag extends BaseEntity {
 
 		for (Attribute nodeAttribute : getNodeAttributeList()) {
 			for (int i = 0; i < attributes.getLength(); i++) {
-				String name = attributes.getLocalName(i);
-				String value = attributes.getValue(i);
-				if (nodeAttribute.getName().equals("*")) {
-					if (value.contains(nodeAttribute.getValue()))
-						return true;
-				} else if (nodeAttribute.getName().equals(name)) {
-					if (nodeAttribute.getValue().equals("*"))
-						return true;
-					if (nodeAttribute.getValue().contains(value))
-						return true;
-				}
-
+				if (nodeAttribute.isMatch(attributes.getLocalName(i), attributes.getValue(i)))
+					return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public Map<String, String> getMatchAttributes(Attributes attributes) {
 		Map<String, String> map = new HashMap<>();
-		for(Attribute nodeAttribute : getNodeAttributeList()) {
+		for (Attribute nodeAttribute : getNodeAttributeList()) {
 			for (int i = 0; i < attributes.getLength(); i++) {
 				String name = attributes.getLocalName(i);
 				String value = attributes.getValue(i);
-				if(!nodeAttribute.isMatch(name, value))
+				if (!nodeAttribute.isMatch(name, value))
 					continue;
 				map.put(name, value);
 			}
