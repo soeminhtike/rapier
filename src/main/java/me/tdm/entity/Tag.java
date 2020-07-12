@@ -1,7 +1,9 @@
 package me.tdm.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -109,6 +111,20 @@ public class Tag extends BaseEntity {
 			}
 		}
 		return false;
+	}
+	
+	public Map<String, String> getMatchAttributes(Attributes attributes) {
+		Map<String, String> map = new HashMap<>();
+		for(Attribute nodeAttribute : getNodeAttributeList()) {
+			for (int i = 0; i < attributes.getLength(); i++) {
+				String name = attributes.getLocalName(i);
+				String value = attributes.getValue(i);
+				if(!nodeAttribute.isMatch(name, value))
+					continue;
+				map.put(name, value);
+			}
+		}
+		return map;
 	}
 
 	public String toString() {

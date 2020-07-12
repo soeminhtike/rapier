@@ -8,19 +8,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="attribute")
+@Table(name = "attribute")
 public class Attribute extends BaseEntity {
 
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="value")
+
+	@Column(name = "value")
 	private String value;
-	
-	@JoinColumn(name="tagId")
+
+	@JoinColumn(name = "tagId")
 	@OneToOne(fetch = FetchType.EAGER)
 	private Tag tag;
-
+	
 	public String getName() {
 		return name;
 	}
@@ -44,9 +44,21 @@ public class Attribute extends BaseEntity {
 	public void setTag(Tag predefinedTag) {
 		this.tag = predefinedTag;
 	}
-	
+
 	public String toString() {
 		return String.format("%s=%s", name, value);
 	}
-	
+
+	public boolean isMatch(String name, String value) {
+		return isMatchName(name) && isMatchValue(value);
+	}
+
+	private boolean isMatchName(String name) {
+		return !this.name.equals("*") ? this.name.equals(name) : true;
+	}
+
+	private boolean isMatchValue(String value) {
+		return !this.value.equals("*") ? this.value.equals(value) : true;
+	}
+
 }
