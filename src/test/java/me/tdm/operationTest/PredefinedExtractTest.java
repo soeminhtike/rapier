@@ -60,7 +60,6 @@ public class PredefinedExtractTest {
 	}
 
 	@Test
-	@Ignore
 	public void test1() throws Exception {
 		BufferedReader reader = new BufferedReader(new FileReader(new File(path + "/result.rpi")));
 		StringBuffer buffer = new StringBuffer();
