@@ -48,5 +48,9 @@ public class ExtractedData extends BaseEntity {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
+	
+	public static ExtractedData create() {
+		return new ExtractedData();
+	}
 
 }

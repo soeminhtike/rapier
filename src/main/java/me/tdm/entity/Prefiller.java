@@ -1,50 +1,36 @@
 package me.tdm.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 @Entity
 @Table(name = "prefiller")
 public class Prefiller extends BaseEntity {
-	
+
 	private static Logger logger = Logger.getLogger(Prefiller.class);
 
-	@OneToMany(mappedBy = "prefiller", cascade = CascadeType.ALL)
-	private List<Tag> tagList;
+	@Column(name = "regularExpression")
+	private String regularExpression;
 
-	public Prefiller() {
-		tagList = new ArrayList<>();
+	public String getRegularExpression() {
+		return regularExpression;
 	}
 
-	public List<Tag> getTagList() {
-		return tagList;
+	public void setRegularExpression(String regularExpression) {
+		this.regularExpression = regularExpression;
 	}
 
-	public void setTagList(List<Tag> tagList) {
-		this.tagList = tagList;
-	}
-	
-	private static void createTagAndAddToPrefiller(Object obj, Prefiller prefiller) {
-		Tag tag = Tag.create((JSONObject) obj);
-		tag.setPrefiller(prefiller);
-		prefiller.tagList.add(tag);
+	public String[] getCssRule() {
+		return this.regularExpression.split(";");
 	}
 
-	@SuppressWarnings("unchecked")
-	public static Prefiller createPrefiller(JSONObject json) {
+	public static Prefiller create(JSONObject json) {
 		Prefiller prefiller = new Prefiller();
-		JSONArray tagJsonArray = (JSONArray) json.get("tag");
-		logger.info("prefiller tag :" + tagJsonArray);
-		tagJsonArray.forEach(obj -> createTagAndAddToPrefiller(obj, prefiller));
+		prefiller.regularExpression = (String) json.get("regular-expression");
 		return prefiller;
 	}
 

@@ -1,7 +1,7 @@
 package me.tdm.helper;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,14 +10,15 @@ import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-@Service
-public class Utitlities {
+import me.tdm.entity.DataEntry;
 
-	private static Logger logger = Logger.getLogger(Utitlities.class);
+@Service
+public class Utilities {
+
+	private static Logger logger = Logger.getLogger(Utilities.class);
 
 	public static Iterable<String> fileIteratable(InputStream inputStream) {
 
@@ -35,15 +36,28 @@ public class Utitlities {
 		return iterable;
 	}
 
+	public static File loadFileFrom(DataEntry entry) {
+		return new File(entry.getLocation());
+	}
+
 	public static JSONObject toJson(MultipartFile multipartFile) {
-		JSONObject json = new JSONObject();
+		try {
+			return toJSon(multipartFile.getInputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new JSONObject();
+	}
+
+	public static JSONObject toJSon(InputStream inputStream) {
 		JSONParser parser = new JSONParser();
 		try {
-			return (JSONObject) parser.parse(new InputStreamReader(multipartFile.getInputStream()));
+			return (JSONObject) parser.parse(new InputStreamReader(inputStream));
 		} catch (Exception e) {
 			logger.error("Can't parse json ", e);
 		}
-		return json;
+		return new JSONObject();
 	}
 
 	private static class FileIterator implements Iterator<String> {

@@ -10,7 +10,6 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,17 +24,13 @@ import org.springframework.web.multipart.MultipartFile;
 import me.tdm.constant.OperationStatus;
 import me.tdm.dao.EntityService;
 import me.tdm.entity.DataEntry;
-import me.tdm.entity.Filler;
-import me.tdm.entity.Prefiller;
 import me.tdm.entity.Rule;
-import me.tdm.helper.Utitlities;
+import me.tdm.helper.Utilities;
 import me.tdm.logic.DataEntryService;
 import me.tdm.logic.Rapier;
 
 @Controller
 public class HomeController {
-
-	private static Logger logger = Logger.getLogger(HomeController.class);
 
 	@Value("${preprocessing-file.name}")
 	private String preprocessingFileName;
@@ -78,7 +73,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/preprocessing-rule", method = RequestMethod.POST)
 	public String uploadPreprocessionJsonRule(@RequestParam("file") MultipartFile multipartFile) {
-		JSONObject json = Utitlities.toJson(multipartFile);
+		JSONObject json = Utilities.toJson(multipartFile);
 		Rule rule = Rule.create(json);
 		entityService.save(rule);
 		return OperationStatus.SUCCESS.name();

@@ -20,8 +20,8 @@ import org.xml.sax.Attributes;
 
 import me.tdm.constant.Status;
 
-@Entity
-@Table(name = "tag")
+//@Entity
+//@Table(name = "tag")
 public class Tag extends BaseEntity {
 
 	@ManyToOne

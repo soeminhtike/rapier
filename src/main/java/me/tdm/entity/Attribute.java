@@ -7,8 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "attribute")
+//@Entity
+//@Table(name = "attribute")
 public class Attribute extends BaseEntity {
 
 	@Column(name = "name")
@@ -58,7 +58,7 @@ public class Attribute extends BaseEntity {
 	}
 
 	private boolean isMatchValue(String value) {
-		return !this.value.equals("*") ? this.value.equals(value) : true;
+		return !this.value.equals("*") ? value.contains(this.value) : true;
 	}
 
 }
