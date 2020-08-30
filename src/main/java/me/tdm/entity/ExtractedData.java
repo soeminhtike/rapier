@@ -16,6 +16,16 @@ public class ExtractedData extends BaseEntity {
 	private String author;
 
 	private String isbn;
+	
+	private String paperBack;
+	
+	private String price;
+	
+	private String edition;
+	
+	private String publication;
+	
+	private String publisher;
 
 	public DataEntry getDataEntry() {
 		return dataEntry;
@@ -49,6 +59,46 @@ public class ExtractedData extends BaseEntity {
 		this.isbn = isbn;
 	}
 	
+	public String getPaperBack() {
+		return paperBack;
+	}
+
+	public void setPaperBack(String paperBack) {
+		this.paperBack = paperBack;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getEdition() {
+		return edition;
+	}
+
+	public void setEdition(String edition) {
+		this.edition = edition;
+	}
+
+	public String getPublication() {
+		return publication;
+	}
+
+	public void setPublication(String publication) {
+		this.publication = publication;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
 	public static ExtractedData create() {
 		return new ExtractedData();
 	}

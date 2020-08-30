@@ -13,6 +13,9 @@ public class DataEntry extends BaseEntity {
 	
 	@Column(name="internalName")
 	private String internalName;
+	
+	@Column(name="extractedPath")
+	private String extractedPath;
 
 	public String getLocation() {
 		return location;

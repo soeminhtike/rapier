@@ -4,14 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 
 @Entity
 @Table(name = "prefiller")
 public class Prefiller extends BaseEntity {
-
-	private static Logger logger = Logger.getLogger(Prefiller.class);
 
 	@Column(name = "regularExpression")
 	private String regularExpression;

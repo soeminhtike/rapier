@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +32,19 @@ public class RuleLoader {
 
 	@Test
 	public void loadRule() throws FileNotFoundException {
-		logger.info("loading...");
 		entityService.save(Rule.create(Utilities.toJSon(toInputStream("author.json"))));
 		entityService.save(Rule.create(Utilities.toJSon(toInputStream("isbn.json"))));
+		entityService.save(Rule.create(Utilities.toJSon(toInputStream("paperback.json"))));
+		entityService.save(Rule.create(Utilities.toJSon(toInputStream("price.json"))));
+		entityService.save(Rule.create(Utilities.toJSon(toInputStream("title.json"))));
+		entityService.save(Rule.create(Utilities.toJSon(toInputStream("publication.json"))));
+		entityService.save(Rule.create(Utilities.toJSon(toInputStream("publisher.json"))));
+		entityService.save(Rule.create(Utilities.toJSon(toInputStream("edition.json"))));
 	}
 
 	private InputStream toInputStream(String name) {
 		try {
-			return new FileInputStream(new File(basePath + "/" + name));
+			return new FileInputStream(new File(basePath + name));
 		} catch (FileNotFoundException e) {
 			logger.error("Can't load file", e);
 			return null;
