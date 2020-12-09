@@ -29,6 +29,10 @@ public class DataEntryService {
 		dataEntry.setLocation(file.getAbsolutePath());
 		return dataEntry;
 	}
+	
+	public List<DataEntry> getAll() {
+		return entityService.findByString("from DataEntry d ", null, DataEntry.class);
+	}
 
 	@Transactional(readOnly = false)
 	public DataEntry findByName(String name) {

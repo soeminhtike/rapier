@@ -28,11 +28,25 @@ Rapier.uploadHtml = function (element, displayId) {
 
 Rapier.removeTag = function (selector) {
     const name = $("#process-html-name").val();
-    $.post("remove-tag/" + name, success);
+    $.post("remove-tag/" + name).then(success);
 
     function success(data) {
         $(selector).text(data);
+        $("#regular-expression-store").prop("disabled", false);
     }
+}
+
+Rapier.loadStoreFile = function() {
+    $.get("stored-files").then(data => {
+       $("#data-extraction-stored-file").html(data);
+    })
+}
+
+Rapier.store = function() {
+    $.post("store/" + $("#process-html-name").val()).then( data=> {
+        alert(data);
+        $("#regular-expression-store").prop("disabled", true);
+    })
 }
 
 Rapier.extract = function(selector) {
@@ -42,6 +56,20 @@ Rapier.extract = function(selector) {
     function success(data) {
         $(selector).text(data);
     }
+}
+
+Rapier.updateContent = function(element) {
+    $("#data-extraction-stored-file div").removeClass("active");
+    $(element).addClass("active");
+    const name = $(element).attr("name");
+    $.get("store-file/origin-content/" + name ).then(data => {
+        $("#preprocessing-output").text(data);
+        $("#process-html-name").prop("value", name);
+    });
+
+    $.get("store-file/extracted-content/" + name).then(data => {
+        $("#remove-tag-html").text(data);
+    })
 }
 
 Rapier.uploadRule = function(element) {

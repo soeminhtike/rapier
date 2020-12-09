@@ -32,6 +32,14 @@ public class DataEntry extends BaseEntity {
 	public void setInternalName(String internalName) {
 		this.internalName = internalName;
 	}
+
+	public String getExtractedPath() {
+		return extractedPath;
+	}
+
+	public void setExtractedPath(String extractedPath) {
+		this.extractedPath = extractedPath;
+	}
 	
 	
 }

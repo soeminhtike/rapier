@@ -2,10 +2,12 @@ package me.tdm.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +40,9 @@ public class HomeController {
 
 	@Value("${target-directory}")
 	private String path;
+
+	@Value("${extracted-directory}")
+	private String extractedDirectory;
 
 	@Autowired
 	private Rapier rapier;
@@ -69,6 +75,44 @@ public class HomeController {
 		DataEntry entry = dataEntryService.findByName(name);
 		String processedString = rapier.preprocessing(new File(entry.getLocation()));
 		IOUtils.copy(toInputStream(processedString), response.getOutputStream());
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "store-file/origin-content/{name}", method = RequestMethod.GET)
+	public void getOriginalContent(@PathVariable("name") String name, HttpServletResponse response)
+			throws FileNotFoundException, IOException {
+		DataEntry dataEntry = dataEntryService.findByName(name);
+		IOUtils.copy(new FileInputStream(new File(dataEntry.getLocation())), response.getOutputStream());
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "store-file/extracted-content/{name}", method = RequestMethod.GET)
+	public void getExtractedContent(@PathVariable("name") String name, HttpServletResponse response)
+			throws FileNotFoundException, IOException {
+		DataEntry dataEntry = dataEntryService.findByName(name);
+		if (dataEntry.getExtractedPath() == null)
+			IOUtils.copy(new ByteArrayInputStream("".getBytes()), response.getOutputStream());
+		else
+			IOUtils.copy(new FileInputStream(new File(dataEntry.getExtractedPath())), response.getOutputStream());
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "store/{name}", method = RequestMethod.POST)
+	public String storeExtraction(@PathVariable("name") String name) throws Exception {
+		DataEntry entry = dataEntryService.findByName(name);
+		String filePath = extractedDirectory + "/" + name;
+		String processedString = rapier.preprocessing(new File(entry.getLocation()));
+		IOUtils.copy(toInputStream(processedString), new FileOutputStream(new File(filePath)));
+		entry.setExtractedPath(filePath);
+		dataEntryService.save(entry);
+		return OperationStatus.SUCCESS.name();
+	}
+
+	@RequestMapping(value = "stored-files", method = RequestMethod.GET)
+	public String getStoreFiles(Model model) {
+		List<DataEntry> dataEntryList = dataEntryService.getAll();
+		model.addAttribute("dataEntries", dataEntryList);
+		return "data-entry-list";
 	}
 
 	@RequestMapping(value = "/preprocessing-rule", method = RequestMethod.POST)

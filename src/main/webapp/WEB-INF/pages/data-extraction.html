@@ -17,12 +17,23 @@
             </div>
         </form>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10" style="padding-right:1px;">
                 <textarea id="result-text" class="form-control" style="height: 400px;"></textarea>
             </div>
+            <div class="col-md-2" style="padding-left:0px;" >
+                <div style="background-color: #eee;padding:5px 10px;text-align: center;color:#777;" onclick="Rapier.loadStoreFile()">
+                    Stored Files
+                    <span class="glyphicon glyphicon-plus" ></span>
+                </div>
+                <div id="data-extraction-stored-file" style="max-height: 400px;overflow: auto;">
+
+                </div>
+            </div>
         </div>
-        <div class="row" style="padding:10px 0;float: right;">
-            <button class="btn btn-primary" onclick="$('#html-file').click()">Extract</button>
+        <div class="row" >
+            <div class="col-md-10" >
+                <button class="btn btn-primary" onclick="$('#html-file').click()" style="float:right;margin-right:0px;margin-top:5px;">Extract</button>
+            </div>
         </div>
     </div>
 </section>

@@ -1,0 +1,3 @@
+<div th:each="dataEntry : ${dataEntries}" onclick="Rapier.updateContent(this)" th:name="${dataEntry.internalName}" style="background-color:#cce5ff;color:#004085;padding:5px;text-align: center;border-bottom: thin solid #fff;">
+	<div th:text="${dataEntry.id +' | ' + dataEntry.internalName}" ></div>
+</div>

@@ -2,6 +2,7 @@ package me.tdm.dao;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,7 +35,8 @@ public class EntityService {
 		Session session = sessionFactory.getCurrentSession();
 
 		Query query = session.createQuery(queryString);
-		query.setParameter("dataInput", value);
+		if (value != null)
+			query.setParameter("dataInput", value);
 		return query.list();
 	}
 }
