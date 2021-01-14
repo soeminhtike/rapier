@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,8 @@ import me.tdm.logic.Rapier;
 
 @Controller
 public class HomeController {
+	
+	private static Logger logger = Logger.getLogger(HomeController.class);
 
 	@Value("${preprocessing-file.name}")
 	private String preprocessingFileName;
@@ -104,6 +107,7 @@ public class HomeController {
 		String processedString = rapier.preprocessing(new File(entry.getLocation()));
 		IOUtils.copy(toInputStream(processedString), new FileOutputStream(new File(filePath)));
 		entry.setExtractedPath(filePath);
+		dataEntryService.addRule(entry);
 		dataEntryService.save(entry);
 		return OperationStatus.SUCCESS.name();
 	}

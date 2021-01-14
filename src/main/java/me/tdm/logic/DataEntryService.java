@@ -29,9 +29,15 @@ public class DataEntryService {
 		dataEntry.setLocation(file.getAbsolutePath());
 		return dataEntry;
 	}
-	
+
 	public List<DataEntry> getAll() {
 		return entityService.findByString("from DataEntry d ", null, DataEntry.class);
+	}
+
+	public void addRule(DataEntry dataEntry) {
+		if (dataEntry == null)
+			return;
+		dataEntry.setRuleList(entityService.getAllRapierRule());
 	}
 
 	@Transactional(readOnly = false)

@@ -43,10 +43,7 @@ Rapier.loadStoreFile = function() {
 }
 
 Rapier.store = function() {
-    $.post("store/" + $("#process-html-name").val()).then( data=> {
-        alert(data);
-        $("#regular-expression-store").prop("disabled", true);
-    })
+    $.post("store/" + $("#process-html-name").val()).then( data => Swal.fire('Rule is successfully uploaded!', '', 'success'))
 }
 
 Rapier.extract = function(selector) {
@@ -86,8 +83,9 @@ Rapier.uploadRule = function(element) {
     });
 
     function success(data) {
-        console.log('here');
+    	Swal.fire('Rule is successfully uploaded!', '', 'success');
     }
+    
 }
 
 function uploadPreprocessingFile(element) {
