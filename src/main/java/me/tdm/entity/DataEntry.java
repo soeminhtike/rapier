@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ public class DataEntry extends BaseEntity {
 	private String extractedPath;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="dataentry_rule")
+	@JoinTable(name="dataentry_rule", joinColumns = { @JoinColumn(name = "dataEntryId")}, inverseJoinColumns = { @JoinColumn(name="ruleId")})
 	private List<Rule> ruleList;
 
 	public String getLocation() {
@@ -48,6 +49,11 @@ public class DataEntry extends BaseEntity {
 
 	public void setExtractedPath(String extractedPath) {
 		this.extractedPath = extractedPath;
+	}
+	
+	public String getDisplayName() {
+		String[] temp = getInternalName().split("_");
+		return temp.length > 1 ? temp[1] : temp[0];
 	}
 
 	public List<Rule> getRuleList() {

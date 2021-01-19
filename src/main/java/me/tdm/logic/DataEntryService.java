@@ -23,9 +23,9 @@ public class DataEntryService {
 	}
 
 	@Transactional(readOnly = true)
-	public DataEntry create(File file) {
+	public DataEntry create(File file, String name) {
 		DataEntry dataEntry = new DataEntry();
-		dataEntry.setInternalName(System.nanoTime() + "");
+		dataEntry.setInternalName(System.nanoTime() + "_" + name.split("\\.")[0]);
 		dataEntry.setLocation(file.getAbsolutePath());
 		return dataEntry;
 	}

@@ -67,7 +67,7 @@ public class HomeController {
 		String temporaryFileName = System.nanoTime() + ".html";
 		File file = new File(path + temporaryFileName);
 		IOUtils.copy(multipartFile.getInputStream(), new FileOutputStream(file));
-		DataEntry dataEntry = dataEntryService.create(file);
+		DataEntry dataEntry = dataEntryService.create(file, multipartFile.getOriginalFilename());
 		dataEntryService.save(dataEntry);
 		return dataEntry.getInternalName();
 	}
