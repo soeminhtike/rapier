@@ -1,5 +1,7 @@
 package me.tdm.entity;
 
+import java.util.stream.Stream;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,12 +53,25 @@ public class Rule extends BaseEntity {
 		this.name = name;
 	}
 	
+	public String buildFirstLevelRule() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(String.format("%s", prefiller.getRegularExpression()));
+		buffer.append(String.format("(%s)", filler.getRegularExpression()));
+		buffer.append(String.format("%s", postFiller.getRegularExpression()));
+		return buffer.toString();
+	}
+	
+	public String buildSecondLevelRule() {
+		return String.format("(%s)", filler.getRegularExpression());
+	}
+	
 	public static Rule create(JSONObject json) {
-		logger.info("json :" + json);
 		Prefiller prefiller = Prefiller.create((JSONObject) json.get("prefiller"));
 		Filler filler = Filler.create((JSONObject) json.get("filler"));
 		return Rule.create(filler, prefiller, (String) json.get("name"));
 	}
+	
+	
 
 	public static Rule create(Filler filler, Prefiller prefiller, String name) {
 		Rule rule = new Rule();

@@ -21,10 +21,6 @@ public class Prefiller extends BaseEntity {
 		this.regularExpression = regularExpression;
 	}
 
-	public String[] getCssRule() {
-		return this.regularExpression.split(";");
-	}
-
 	public static Prefiller create(JSONObject json) {
 		Prefiller prefiller = new Prefiller();
 		prefiller.regularExpression = (String) json.get("regular-expression");

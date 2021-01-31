@@ -69,6 +69,13 @@ Rapier.updateContent = function(element) {
     })
 }
 
+Rapier.extract = function() {
+	const name = $("#data-extraction-stored-file div.active").attr("name");
+	$.post(`extract/${name}`).then( data => {
+		console.log("here", data);
+	})
+}
+
 Rapier.uploadRule = function(element) {
     const file = element.files[0];
     const formData = new FormData();

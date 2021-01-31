@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import me.tdm.constant.OperationStatus;
 import me.tdm.dao.EntityService;
 import me.tdm.entity.DataEntry;
+import me.tdm.entity.ExtractedData;
 import me.tdm.entity.Rule;
 import me.tdm.helper.Utilities;
 import me.tdm.logic.DataEntryService;
@@ -129,11 +130,13 @@ public class HomeController {
 
 	@ResponseBody
 	@RequestMapping(value = "extract/{name}", method = RequestMethod.POST)
-	public void extractFile(@PathVariable("name") String name, HttpServletResponse response) throws Exception {
+	public ExtractedData extractFile(@PathVariable("name") String name, HttpServletResponse response) throws Exception {
 		DataEntry entry = dataEntryService.findByName(name);
-		FileOutputStream outputStream = new FileOutputStream(new File(entry.getLocation()));
-		String processedString = "";
-		IOUtils.copy(toInputStream(processedString), response.getOutputStream());
+		//FileOutputStream outputStream = new FileOutputStream(new File(entry.getLocation()));
+		// rapier.extract(entry);
+		//String processedString = "";
+		// IOUtils.copy(toInputStream(processedString), response.getOutputStream());
+		return rapier.extract(entry);
 	}
 
 	private InputStream toInputStream(String str) {
